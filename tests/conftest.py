@@ -4,7 +4,7 @@ from app.main import app
 from fastapi.testclient import TestClient
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture(scope="session")
 def client():
     """Заменяем `get_db` на тестовую БД"""
     async def test_db():
