@@ -24,7 +24,7 @@ async def create_car(car: schemas.CarCreate, db: Session = Depends(database.get_
     return await crud.create_car(db, car)
 
 
-@router.delete("/cars/{car_id}")
+@router.delete("/cars/{car_id}", status_code=204)
 async def delete_car(car_id: int, db: Session = Depends(database.get_db)):
     if not crud.delete_car(db, car_id):
         raise HTTPException(status_code=404, detail="Car not found")
