@@ -1,18 +1,18 @@
 name: My CI Pipeline  # Название workflow
 
 on:
-  push:  # Запускается при пуше в репозиторий
+  push:
     branches:
       - main
-    pull_request:
+  pull_request:
+    branches:
       - main
-
-env:
-  DATABASE_URL: ${{ secrets.DATABASE_URL }}
 
 jobs:
   build:  # Название задачи (job)
     runs-on: ubuntu-latest  # На какой ОС будет выполняться job
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
 
     services:
       postgres:
@@ -24,7 +24,7 @@ jobs:
         ports:
           - 5432:5432
         options: >-
-          --health-cmd "pg_isready -U test_user"
+          --health-cmd "pg_isready -U user"
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
