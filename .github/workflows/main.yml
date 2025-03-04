@@ -5,6 +5,9 @@ on:
     branches:
       - main
 
+env:
+  DATABASE_URL: ${{ secrets.DATABASE_URL }}
+
 jobs:
   build:  # Название задачи (job)
     runs-on: ubuntu-latest  # На какой ОС будет выполняться job
