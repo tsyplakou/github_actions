@@ -4,6 +4,8 @@ on:
   push:  # Запускается при пуше в репозиторий
     branches:
       - main
+    pull_request:
+      - main
 
 env:
   DATABASE_URL: ${{ secrets.DATABASE_URL }}
