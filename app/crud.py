@@ -9,7 +9,9 @@ async def get_cars(db: AsyncSession, skip: int = 0, limit: int = 10):
 
 
 async def get_car(db: AsyncSession, car_id: int):
-    result = await db.execute(select(models.Car).filter(models.Car.id == car_id))
+    result = await db.execute(
+        select(models.Car).filter(models.Car.id == car_id)
+    )
     return result.scalar_one_or_none()
 
 
@@ -22,7 +24,9 @@ async def create_car(db: AsyncSession, car: schemas.CarCreate):
 
 
 async def delete_car(db: AsyncSession, car_id: int):
-    result = await db.execute(select(models.Car).filter(models.Car.id == car_id))
+    result = await db.execute(
+        select(models.Car).filter(models.Car.id == car_id)
+    )
     db_car = result.scalars().first()
 
     if db_car:

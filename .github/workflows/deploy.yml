@@ -1,0 +1,23 @@
+name: Deploy to Server
+
+on:
+  push:
+    branches:
+      - main  # Деплой срабатывает ТОЛЬКО после мержа PR в main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
+
+      - name: Deploy with SCP
+        run: scp -r ./* jenkins@${{ secrets.SERVER_IP }}:/home/jenkins/temp/
